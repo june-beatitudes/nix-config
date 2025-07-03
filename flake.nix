@@ -6,11 +6,10 @@
   };
 
   outputs = { self, nixpkgs, ... }: {
-    nixosConfigurations.juniper-nixos = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.bea-laptop = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
-        /etc/nixos/hardware-configuration.nix
       ];
     };
   };
