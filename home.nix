@@ -18,6 +18,7 @@
     safeeyes
     tmux
     discord
+    cava
   ];
 
   programs.git = {
@@ -39,12 +40,17 @@
   };
   programs.neovim = {
     enable = true;
-    extraConfig = lib.fileContents ./nvim-init.lua;
+    extraLuaConfig = lib.fileContents ./nvim-init.lua;
     plugins = with pkgs.vimPlugins; [
       telescope-nvim
       rainbow-delimiters-nvim
       clangd_extensions-nvim
       nvim-lspconfig
+      barbecue-nvim
+      gitsigns-nvim
+      tiny-inline-diagnostic-nvim
+      todo-comments-nvim
+      onedark-nvim
     ];
   };
 
