@@ -19,6 +19,8 @@
     tmux
     discord
     cava
+    ghostty
+    zotero
   ];
 
   programs.git = {
@@ -51,6 +53,8 @@
       tiny-inline-diagnostic-nvim
       todo-comments-nvim
       onedark-nvim
+      nvim-tree-lua
+      follow-md-links-nvim
     ];
   };
 
