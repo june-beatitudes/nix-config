@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   home.username = "juniper";
@@ -25,9 +25,28 @@
     userName = "Juniper Beatitudes";
     userEmail = "weirdgirl98@proton.me";
   };
-
-  programs.fish.enable = true;
-  programs.firefox.enable = true;
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+    history.size = 10000;
+    oh-my-zsh = {
+      enable = true;
+      theme = "agnoster";
+      plugins = [ "git" "timer" ];
+    };
+  };
+  programs.neovim = {
+    enable = true;
+    extraConfig = lib.fileContents ./nvim-init.lua;
+    plugins = with pkgs.vimPlugins; [
+      telescope-nvim
+      rainbow-delimiters-nvim
+      clangd_extensions-nvim
+      nvim-lspconfig
+    ];
+  };
 
   home.stateVersion = "25.05";
 }

@@ -1,20 +1,14 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
 
-  # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "bea-laptop"; # Define your hostname.
+  networking.hostName = "bea-laptop";
   networking.networkmanager.enable = true;
 
   time.timeZone = "America/Los_Angeles";
@@ -40,9 +34,22 @@
   };
 
   services.printing.enable = true;
-  services.flatpak.enable = true;
   services.tailscale.enable = true;
   services.openssh.enable = true;
+  services.flatpak = {
+    enable = true;
+    uninstallUnmanaged = true;
+    packages = [
+      "com.valvesoftware.Steam"
+      "app.zen_browser.zen"
+      "com.spotify.Client"
+      "com.todoist.Todoist"
+      "one.flipperzero.qFlipper"
+      "org.prismlauncher.PrismLauncher"
+      "org.raspberrypi.rpi-imager"
+      "org.signal.Signal"
+    ];
+  };
 
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -73,9 +80,7 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  programs.fish.enable = true;
-  programs.firefox.enable = true;
-
+  programs.zsh.enable = true;
   users.users.juniper = {
     isNormalUser = true;
     description = "Juniper Beatitudes";
@@ -83,21 +88,7 @@
       "networkmanager"
       "wheel"
     ];
-    shell = pkgs.fish;
-    packages = with pkgs; [
-      nmap
-      bear
-      nixfmt-rfc-style
-      powertop
-      alsa-utils
-      lazygit
-      wireshark
-      cozette
-      telegram-desktop
-      arduino-cli
-      safeeyes
-      tmux
-    ];
+    shell = pkgs.zsh;
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -115,7 +106,6 @@
     gnum4
     fira-code
   ];
-
 
   services.udev.extraRules = ''
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5740", ATTRS{manufacturer}=="Flipper Devices Inc.", TAG+="uaccess"
