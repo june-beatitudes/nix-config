@@ -45,7 +45,7 @@
     extraLuaConfig = lib.fileContents ./nvim-init.lua;
     plugins = with pkgs.vimPlugins; [
       telescope-nvim
-      rainbow-delimiters-nvim
+      nvim-web-devicons
       clangd_extensions-nvim
       nvim-lspconfig
       barbecue-nvim
