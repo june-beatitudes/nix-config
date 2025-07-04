@@ -55,6 +55,7 @@
       onedark-nvim
       nvim-tree-lua
       follow-md-links-nvim
+      barbar-nvim
     ];
   };
 
