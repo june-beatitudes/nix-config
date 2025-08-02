@@ -5,6 +5,11 @@
     ./hardware-configuration.nix
   ];
 
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -36,23 +41,12 @@
   services.printing.enable = true;
   services.tailscale.enable = true;
   services.openssh.enable = true;
-  services.flatpak = {
-    enable = true;
-    uninstallUnmanaged = true;
-    packages = [
-      "com.valvesoftware.Steam"
-      "app.zen_browser.zen"
-      "com.spotify.Client"
-      "com.todoist.Todoist"
-      "one.flipperzero.qFlipper"
-      "org.prismlauncher.PrismLauncher"
-      "org.raspberrypi.rpi-imager"
-      "org.signal.Signal"
-    ];
-  };
+  services.flatpak.enable = true;
+  security.allowUserNamespaces = true;
 
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
+  security.polkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -105,11 +99,12 @@
     gnumake
     gnum4
     fira-code
+    xdg-desktop-portal-gnome
   ];
 
   services.udev.extraRules = ''
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5740", ATTRS{manufacturer}=="Flipper Devices Inc.", TAG+="uaccess"
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", ATTRS{manufacturer}=="STMicroelectronics", TAG+="uaccess"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", ATTRS{manufacturer}=="STMicroelectronics", MODE=0666
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="303a", ATTRS{idProduct}=="40??", ATTRS{manufacturer}=="Flipper Devices Inc.", TAG+="uaccess"
   '';
 

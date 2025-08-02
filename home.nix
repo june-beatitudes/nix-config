@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   home.username = "juniper";
@@ -21,6 +26,9 @@
     cava
     ghostty
     zotero
+    zathura
+    swaybg
+    todoist-electron
   ];
 
   programs.git = {
@@ -37,7 +45,10 @@
     oh-my-zsh = {
       enable = true;
       theme = "agnoster";
-      plugins = [ "git" "timer" ];
+      plugins = [
+        "git"
+        "timer"
+      ];
     };
   };
   programs.neovim = {
@@ -58,6 +69,6 @@
       barbar-nvim
     ];
   };
-
+  
   home.stateVersion = "25.05";
 }
