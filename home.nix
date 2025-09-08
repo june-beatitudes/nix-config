@@ -20,7 +20,6 @@
     cozette
     telegram-desktop
     arduino-cli
-    safeeyes
     tmux
     discord
     cava
