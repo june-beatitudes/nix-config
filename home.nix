@@ -28,6 +28,8 @@
     zathura
     swaybg
     todoist-electron
+    sapling
+    gh
   ];
 
   programs.git = {
