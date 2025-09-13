@@ -30,6 +30,7 @@
     todoist-electron
     sapling
     gh
+    steam
   ];
 
   programs.git = {
