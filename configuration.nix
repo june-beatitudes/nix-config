@@ -12,8 +12,11 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.kernelModules = [ "pinctrl_tigerlake" ];
 
-  networking.hostName = "bea-laptop";
+  boot.initrd.luks.devices."luks-187f8ea7-22d8-4510-a001-e4dd85d48040".device =
+    "/dev/disk/by-uuid/187f8ea7-22d8-4510-a001-e4dd85d48040";
+  networking.hostName = "bea-framework";
   networking.networkmanager.enable = true;
 
   time.timeZone = "America/Chicago";
@@ -31,8 +34,8 @@
   };
 
   services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
   services.xserver.xkb = {
     layout = "us";
     variant = "";
@@ -53,25 +56,6 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
-  };
-
-  services.xserver.videoDrivers = [ "nvidia" ];
-
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = true;
-    prime = {
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
-      nvidiaBusId = "PCI:01:00:0";
-      intelBusId = "PCI:00:02:0";
-    };
-    open = false;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   programs.steam.enable = true;
@@ -102,36 +86,39 @@
     gnumake
     gnum4
     fira-code
-    xdg-desktop-portal-gnome
+    bluez
+    kdePackages.bluedevil
   ];
+
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        # Shows battery charge of connected devices on supported
+        # Bluetooth adapters. Defaults to 'false'.
+        Experimental = true;
+        # When enabled other devices can connect faster to us, however
+        # the tradeoff is increased power consumption. Defaults to
+        # 'false'.
+        FastConnectable = true;
+      };
+      Policy = {
+        # Enable all controllers when they are found. This includes
+        # adapters present on start as well as adapters that are plugged
+        # in later on. Defaults to 'true'.
+        AutoEnable = true;
+      };
+    };
+  };
+
+  home-manager.backupFileExtension = "backup";
 
   services.udev.extraRules = ''
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5740", ATTRS{manufacturer}=="Flipper Devices Inc.", TAG+="uaccess", MODE="0666"
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", ATTRS{manufacturer}=="STMicroelectronics", TAG+="uaccess", MODE="0666"
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="303a", ATTRS{idProduct}=="40??", ATTRS{manufacturer}=="Flipper Devices Inc.", TAG+="uaccess", MODE="0666"
   '';
-
-  security.pam = {
-    services = {
-      login.u2fAuth = true;
-      sudo.u2fAuth = true;
-      sudo.fprintAuth = false;
-    };
-    u2f.control = "required";
-  };
-
-  # Start the driver at boot
-  systemd.services.fprintd = {
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig.Type = "simple";
-  };
-
-  # Install the driver
-  services.fprintd.enable = true;
-  # If simply enabling fprintd is not enough, try enabling fprintd.tod...
-  services.fprintd.tod.enable = true;
-  # ...and use one of the next four drivers
-  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix; # Goodix driver module
 
   system.stateVersion = "25.05";
 }

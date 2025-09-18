@@ -7,6 +7,7 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
   outputs =
@@ -14,10 +15,11 @@
       self,
       nixpkgs,
       home-manager,
+      nixos-hardware,
       ...
     }:
     {
-      nixosConfigurations.bea-laptop = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.bea-framework = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
@@ -27,7 +29,7 @@
             home-manager.useUserPackages = true;
             home-manager.users.juniper = import ./home.nix;
           }
-
+          nixos-hardware.nixosModules.framework-12-13th-gen-intel
         ];
       };
     };

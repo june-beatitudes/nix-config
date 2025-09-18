@@ -24,14 +24,22 @@
     zotero
     zathura
     sapling
-    gh
     librewolf
+    vscodium
+    signal-desktop
+    krita
   ];
 
   programs.git = {
     enable = true;
     userName = "Juniper Beatitudes";
     userEmail = "juniper@eyes-like-fire.org";
+  };
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper = {
+      enable = true;
+    };
   };
   programs.zsh = {
     enable = true;
@@ -48,6 +56,6 @@
       ];
     };
   };
-  
+
   home.stateVersion = "25.05";
 }
