@@ -28,7 +28,7 @@
     vscodium
     signal-desktop
     krita
-    libreoffice-bin
+    libreoffice
   ];
 
   programs.git = {
