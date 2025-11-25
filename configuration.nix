@@ -58,7 +58,11 @@
     jack.enable = true;
   };
 
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
 
   programs.zsh.enable = true;
   users.users.juniper = {
