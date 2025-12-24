@@ -28,6 +28,7 @@
     vscodium
     signal-desktop
     krita
+    inkscape
     libreoffice
   ];
 

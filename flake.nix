@@ -19,7 +19,7 @@
       ...
     }:
     {
-      nixosConfigurations.bea-framework = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.aphrodite = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./configuration.nix

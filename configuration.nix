@@ -16,7 +16,7 @@
 
   boot.initrd.luks.devices."luks-187f8ea7-22d8-4510-a001-e4dd85d48040".device =
     "/dev/disk/by-uuid/187f8ea7-22d8-4510-a001-e4dd85d48040";
-  networking.hostName = "bea-framework";
+  networking.hostName = "aphrodite";
   networking.networkmanager.enable = true;
 
   time.timeZone = "America/Chicago";
