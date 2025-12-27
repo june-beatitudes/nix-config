@@ -34,8 +34,6 @@
   };
 
   services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
   services.xserver.xkb = {
     layout = "us";
     variant = "";
@@ -91,8 +89,16 @@
     gnum4
     fira-code
     bluez
-    kdePackages.bluedevil
+    gnomeExtensions.blur-my-shell
   ];
+
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
+
+  services.gnome.core-apps.enable = false;
+  services.gnome.core-developer-tools.enable = false;
+  services.gnome.games.enable = false;
+  environment.gnome.excludePackages = with pkgs; [ gnome-tour gnome-user-docs ];
 
   hardware.bluetooth = {
     enable = true;

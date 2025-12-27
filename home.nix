@@ -9,6 +9,8 @@
   home.username = "juniper";
   home.homeDirectory = "/home/juniper";
 
+  home.file.".face".source = ./assets/avatar.png;
+
   home.packages = with pkgs; [
     nmap
     bear
@@ -20,7 +22,6 @@
     telegram-desktop
     tmux
     discord
-    ghostty
     zotero
     zathura
     sapling
@@ -30,6 +31,8 @@
     krita
     inkscape
     libreoffice
+    fastfetch
+    nautilus
   ];
 
   programs.git = {
@@ -56,6 +59,18 @@
         "git"
         "timer"
       ];
+    };
+  };
+  programs.kitty = lib.mkForce {
+    enable = true;
+    themeFile = "Chalk";
+    settings = {
+      dynamic_background_opacity = true;
+      enable_audio_bell = true;
+      mouse_hide_wait = "-1.0";
+      window_padding_width = 10;
+      font_family = "FiraCode-Light";
+      font_size = 10;
     };
   };
 
